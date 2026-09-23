@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LCD ESP Com Test</title>
+
+    <link rel="stylesheet" href="resources/style/main.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+<body class="bt-disconnected">
+
+    <section class="main-section">
+        <h1><i class="fa-regular fa-clock fc-main"></i>Tempo até a parada:</h1>
+        <h1 class="fc-b60" id="current-time-value-h1">2s</h1>
+
+        <button class="d-button" onclick="modal('update-time-modal', true)">Definir tempo</button>
+
+        <div class="container outline-container bt-status-container">
+            <h3 id="bt-status-txt"><i class="fa-solid fa-triangle-exclamation"></i>Nenhum dispositivo conectado</h3>
+            <button class="d-button bt-button" onclick="BLEconnect()"><i class="fa-brands fa-bluetooth-b"></i>Conectar Dispositivo</button>
+        </div>
+        
+    </section>
+
+    <div class="black-back"></div>
+
+    <div class="d-modal update-time-modal" id="update-time-modal">
+        <h2><i class="fa-solid fa-pencil"></i>Definir tempo (segundos)</h2>
+
+        <input type="number" placeholder="2s" class="d-input" id="set-time-ipt">
+
+        <div class="v-flex-gap-10">
+            <button class="d-button confirm" onclick="BLEsendCommand(`setTime(${document.querySelector('#set-time-ipt').value})`); modal('update-time-modal', false); document.querySelector('#current-time-value-h1').innerHTML = `${document.querySelector('#set-time-ipt').value}s`">Atualizar</button>
+            <button class="d-button cancel" onclick="modal('update-time-modal', false)">Cancelar</button>
+        </div>
+        
+    </div>
+
+    <script src="resources/script/ui.js"></script>
+    <script src="resources/script/ble.js"></script>
+
+
+    
+</body>
+</html>
