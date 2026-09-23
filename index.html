@@ -14,7 +14,7 @@
 
     <section class="main-section">
         <h1><i class="fa-regular fa-clock fc-main"></i>Tempo até a parada:</h1>
-        <h1 class="fc-b60">2s</h1>
+        <h1 class="fc-b60" id="current-time-value-h1">2s</h1>
 
         <button class="d-button" onclick="modal('update-time-modal', true)">Definir tempo</button>
 
@@ -33,7 +33,7 @@
         <input type="number" placeholder="2s" class="d-input" id="set-time-ipt">
 
         <div class="v-flex-gap-10">
-            <button class="d-button confirm" onclick="BLEsendCommand(`setTime(${document.querySelector('#set-time-ipt').value})`)">Atualizar</button>
+            <button class="d-button confirm" onclick="BLEsendCommand(`setTime(${document.querySelector('#set-time-ipt').value})`); modal('update-time-modal', false); document.querySelector('#current-time-value-h1').innerHTML = `${document.querySelector('#set-time-ipt').value}s`">Atualizar</button>
             <button class="d-button cancel" onclick="modal('update-time-modal', false)">Cancelar</button>
         </div>
         
