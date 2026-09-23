@@ -20,6 +20,8 @@
         esp32Characteristic = await service.getCharacteristic(CHARACTERISTIC_UUID);
 
         console.log("Status: Conectado!");
+        document.body.classList.remove("bt-disconnected");
+        document.querySelector("#bt-status-txt").innerHTML = '<i class="fa-solid fa-circle-check"></i>Dispositiv conectado';
         //document.getElementById('btnOn').disabled = false;
         //document.getElementById('btnOff').disabled = false;
 
@@ -29,7 +31,7 @@
       }
     }
 
-    async function sendCommand(command) {
+    async function BLEsendCommand(command) {
       if (!esp32Characteristic) return;
       try {
         const encoder = new TextEncoder();

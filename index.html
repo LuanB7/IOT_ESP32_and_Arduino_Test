@@ -19,7 +19,7 @@
         <button class="d-button" onclick="modal('update-time-modal', true)">Definir tempo</button>
 
         <div class="container outline-container bt-status-container">
-            <h3><i class="fa-solid fa-triangle-exclamation"></i>Nenhum dispositivo conectado</h3>
+            <h3 id="bt-status-txt"><i class="fa-solid fa-triangle-exclamation"></i>Nenhum dispositivo conectado</h3>
             <button class="d-button bt-button" onclick="BLEconnect()"><i class="fa-brands fa-bluetooth-b"></i>Conectar Dispositivo</button>
         </div>
         
@@ -30,10 +30,10 @@
     <div class="d-modal update-time-modal" id="update-time-modal">
         <h2><i class="fa-solid fa-pencil"></i>Definir tempo (segundos)</h2>
 
-        <input type="number" placeholder="2s" class="d-input">
+        <input type="number" placeholder="2s" class="d-input" id="set-time-ipt">
 
         <div class="v-flex-gap-10">
-            <button class="d-button confirm">Atualizar</button>
+            <button class="d-button confirm" onclick="BLEsendCommand(`setTime(${document.querySelector('#set-time-ipt').value})`)">Atualizar</button>
             <button class="d-button cancel" onclick="modal('update-time-modal', false)">Cancelar</button>
         </div>
         
