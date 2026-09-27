@@ -7,6 +7,11 @@
 #define SERVICE_UUID        "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
 #define CHARACTERISTIC_UUID "beb5483e-36e1-4688-b7f5-ea07361b26a8"
 
+// Serial Ports
+
+#define RX_PIN 16
+#define TX_PIN 17
+
 const int LED_PIN = 2; // LED embutido da placa ESP32
 
 class MyCallbacks: public BLECharacteristicCallbacks {
@@ -32,6 +37,9 @@ class MyCallbacks: public BLECharacteristicCallbacks {
             int secondsInt = textValue.toInt();
 
             Serial.printf("Valor extraído com sucesso: %d\n", secondsInt);
+
+            //
+            Serial2.printf("setTime(%d)", secondsInt);
           }
         }
       }
@@ -40,16 +48,21 @@ class MyCallbacks: public BLECharacteristicCallbacks {
 
 void setup() {
   Serial.begin(115200);
+
+  // Inicializa comunicação Serial com Arduino via RX2/TX2 do ESP - por isso Serial"2"
+  //
+  Serial2.begin(9600, SERIAL_8N1, RX_PIN, TX_PIN);
+
   pinMode(LED_PIN, OUTPUT);
 
-  // 1. Inicializa o dispositivo BLE com o nome visível
+  // Inicializa o dispositivo BLE com o nome visível
   BLEDevice::init("ESP32_BLE_Web");
   
-  // 2. Cria o servidor e o serviço
+  // Cria o servidor e o serviço
   BLEServer *pServer = BLEDevice::createServer();
   BLEService *pService = pServer->createService(SERVICE_UUID);
 
-  // 3. Cria a característica com permissão de leitura e escrita
+  // Cria a característica com permissão de leitura e escrita
   BLECharacteristic *pCharacteristic = pService->createCharacteristic(
                       CHARACTERISTIC_UUID,
                       BLECharacteristic::PROPERTY_READ |
@@ -59,7 +72,7 @@ void setup() {
   pCharacteristic->setCallbacks(new MyCallbacks());
   pService->start();
 
-  // 4. Configuração CORRETA do Advertising (Anúncio)
+  // Configuração CORRETA do Advertising (Anúncio)
   BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
   pAdvertising->addServiceUUID(SERVICE_UUID);
   pAdvertising->setScanResponse(true);                 // <--- OBRIGATÓRIO para o nome ser visível
