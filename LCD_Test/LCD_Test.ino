@@ -25,8 +25,6 @@ LiquidCrystal_I2C lcd(address, columns, rows);
 // Configura os pinos para ouvir o ESP32 (RX = 10, TX = 11)
 SoftwareSerial esp32Serial(10, 11);
 
-
-
 void setup() {
 
   Serial.begin(115200);
@@ -51,7 +49,9 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
 
-  if (currentTime <= 10) {
+  ESPListener();
+
+  if (currentTime <= targetTime) {
 
     lcd.setCursor(0, 0);
     lcd.print("Tempo de Ciclo:");
@@ -121,7 +121,11 @@ void ESPListener() {
 
         targetTime = timeReceived;
         currentTime = 0;
+        timesUp = false;
         lcd.clear();
+
+        Serial.print("Novo tempo até alarme definido:");
+        Serial.print(timeReceived);
       }
     }
   }
