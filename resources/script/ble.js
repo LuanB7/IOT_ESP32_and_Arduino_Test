@@ -20,8 +20,8 @@
         esp32Characteristic = await service.getCharacteristic(CHARACTERISTIC_UUID);
 
         console.log("Status: Conectado!");
-        document.body.classList.remove("bt-disconnected");
-        document.querySelector("#bt-status-txt").innerHTML = '<i class="fa-solid fa-circle-check"></i>Dispositiv conectado';
+        document.body.classList.add("bt-connected");
+        document.querySelector("#bt-status-txt").innerHTML = '<i class="fa-solid fa-circle-check"></i>Dispositivo conectado';
         //document.getElementById('btnOn').disabled = false;
         //document.getElementById('btnOff').disabled = false;
 

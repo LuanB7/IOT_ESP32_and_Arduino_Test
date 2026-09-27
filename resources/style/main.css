@@ -143,8 +143,7 @@ input.d-input:focus {
 }
 
 body.bt-connected .bt-status-container {
-    background-color: white;
-    border-color: rgba(0, 0, 0, 0.15);
+    background-color: rgba(0, 128, 0, 0.1);
 }
 
 
